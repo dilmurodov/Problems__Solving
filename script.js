@@ -91,3 +91,25 @@ function taqqoslash(num1, num2, num3){
         else return new Array(num3, num1)
     }
 }
+
+// Exercise - 6.3
+
+while (true){
+
+    const num1 = prompt("Enter first number: ")
+    const num2 = prompt("Enter second number: ")
+
+    const swap = (num1, num2) => {
+        let temp = num2;
+        num2 = num1;
+        num1 = temp;
+
+        return `Number1: ${num1}, Number2: ${num2}`
+    }
+
+    alert(swap(num1, num2))
+
+    if (!confirm("Are you want to Continue ?")){
+        break;
+    }
+}
