@@ -99,4 +99,59 @@ sayHello({name: "Tolib", age: 19, language: 'ts'});
 
 // Интерфейсы:
 
+// enum - перечислямый множество
+
+enum MethodsEnum {
+    GET = 'GET',
+    POST = 'POST'
+}
+
+interface IApiRequest {
+    method: MethodsEnum,
+    url: string,
+    formData?: boolean,
+    readonly apiDomen: string // Польный адресс куда мы хотим отправит запрос
+}
+
+// Явно указываем тип IAPiRequest
+
+// const request: IApiRequest = {
+//     method: MethodsEnum,
+//     url: '/user/get/',
+//     apiDomen: 'http://google.com'
+// }
+
+// request.apiDomen = '' // Cannot assign to 'apiDomen' because it is a read-only property
+
+// request.url = 'photos/get' // Всё работает :)
+
+interface IUserAPiRequest<T, UserNameT> extends IApiRequest {
+    userID: T;
+    getApiDomen(): string;
+    getUserID(): T;
+    userName: UserNameT;
+}
+
+// const request: IUserAPiRequest = { // Ошибка 'userID' is missing in type but it is required 
+//     method: MethodsEnum.GET,
+//     url: '/user/get/',
+//     apiDomen: 'http://google.com'
+// }
+
+class APiRequest implements IUserAPiRequest<number, string> {
+    method: MethodsEnum;
+    url: string;
+    formData?: boolean;
+    readonly apiDomen: string;
+    userID: number;
+    userName: string;
+
+    getApiDomen(): string {
+        return this.apiDomen
+    }
+
+    getUserID(): number {
+        return this.userID
+    }
+}
 
