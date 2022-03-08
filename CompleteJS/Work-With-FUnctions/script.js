@@ -92,32 +92,105 @@
 // Call - явно указывает this и если необходимо принимает параметр => func.call(this, arg)
 // Apply - он похоже на Call он принимат параметр как массив => func.apply(this, [args1, args2, ...])
 
-// function cacheDecoration(func) {
+// let worker = {
+//     someMethod() {
+//       return 1;
+//     },
+//     makeCache(x){
+//       console.log('Кеширование успешно выпольнено!')
+//       return x * this.someMethod(); // (*)
+//     }
+//   };
+
+//   function cacheDecoration (func){
 //     let cacheList = new Map();
-//     return function (x) {
-//         if (cacheList.has(x)) {
-//             console.log(`${x}'s cache already exist!`)
-//             return cacheList.get(x)
-//         }
+//     return function (x) { // Function Expression
+//       if (cacheList.has(x)){
+//         console.log(`${x}'s cache already exist!`)
+//         return cacheList.get(x)
+//       }
 
-//         let result = func(x);
+//       let result = func.call(this, x); // (**) // Внутри Function expression, Function this = undefined
 
-//         cacheList.set(x, result);
+//       cacheList.set(x, result);
 
-//         return result;
+//       return result;
 //     };
+//   }
+
+//   worker.makeCache(1) // Оригинальное метод работает
+//   worker.makeCache = cacheDecoration(worker.makeCache);
+//   worker.makeCache(1);
+//   worker.makeCache(2);
+
+// Apply()
+
+// let worker = {
+//   someMethod() {
+//     return 1;
+//   },
+//   makeCache(x, y) {
+//     console.log(`Кеширование успешно выпольнено! на ${x} и ${y}`)
+//     return x + y; // (*)
+//   }
+// };
+
+// function cacheDecoration(func, hash) {
+//   let cacheList = new Map();
+//   return function () {
+//     let key = hash(arguments) // (*) что бы вызват как единое ключ  
+//     if (cacheList.has(key)) {
+//       console.log(`${key}'s cache already exist!`)
+//       return cacheList.get(key);
+//     }
+
+//     // let result = func.call(this, ...arguments); // (**) 
+//     let result = func.apply(this, arguments);
+
+//     cacheList.set(key, result);
+
+//     return result;
+//   };
 // }
 
-// function cache(x) {
-//     console.log('Кеширование успешно выпольнено!')
-//     return x;
+// const hash = (args) => {
+//   return `${args[0]},${args[1]}`;
 // }
 
-// let makeCache = cacheDecoration(cache);
-// makeCache(2); // 'Кеширование успешно выпольнено!' => 2
-// makeCache(2); // "2's cache already exist!" => 2
-// makeCache(3); // 'Кеширование успешно выпольнено!' => 3
+// const hash = function () {
+//   console.log(arguments)
+//   return [].join.call(arguments);
+// }
 
-// Это не работает с обектом. Например:
+// worker.makeCache = cacheDecoration(worker.makeCache, hash);
+// let func = worker.makeCache;
+// func(1, 2);
+// func(2, 5);
 
- 
+// Задача - 1
+
+// function work(a, b){
+//   // console.log(this)
+//   console.log(a + b);
+// }
+
+// const spy = function(func){
+
+//   function wrapper (...args) {
+//     wrapper.calls.push(args);
+//     return func.apply(this, arguments); // this => work
+//   }
+//   wrapper.calls = []; // create function property - Array
+//   return wrapper;
+// }
+
+// work = spy(work);
+
+// work(1, 2);
+// work(2, 3);
+
+// for(let args of work.calls){
+//   console.log('call: ' + args.join(','));
+// }
+
+// Задача - 2
