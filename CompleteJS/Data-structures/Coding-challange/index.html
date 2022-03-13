@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+
+    <button>Set background color</button>
     <script src="./script.js"></script>
+    <script>
+        const $ = document.querySelector.bind(document)
+        const BACKGROUND_COLOR = `rgba(${Math.trunc(Math.random()*200) + 1}, ${Math.trunc(Math.random()*200) + 1}, ${Math.trunc(Math.random()*200) + 1}, 1)`
+
+        function onClick() {
+            BACKGROUND_COLOR = BACKGROUND_COLOR;
+            return function () {
+                $('body').style.background = `rgba(${Math.trunc(Math.random()*200) + 1}, ${Math.trunc(Math.random()*200) + 1}, ${Math.trunc(Math.random()*200) + 1}, 1)`
+            }
+        }
+        let createRandomized = onClick();
+        $('button').addEventListener('click', createRandomized);
+    </script>
 </body>
+
 </html>
