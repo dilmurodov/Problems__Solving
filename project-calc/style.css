@@ -1,0 +1,116 @@
+:root {
+    --white: #fff;
+    --grey: #a5a5a5;
+    --bold-grey: #333333;
+    --yellow: #fea00a;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    position: relative;
+    height: 100vh;
+    background-color: #e5e2e2;
+}
+
+section {
+    padding: 2rem 1rem;
+    border-radius: 1rem;
+    background-color: #010101;
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* start coding */
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+textarea {
+    border-radius: 0.4rem;
+    font-size: 2.5rem;
+    color: #010101;
+    outline: none;
+    border: none;
+    text-align: right;
+    width: 317px;
+    height: 94px;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.btns {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    row-gap: 1rem;
+}
+
+.btns .row-btn {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1rem;
+}
+
+.btn {
+    border-radius: 50%;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    font-size: 2rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.row-btn-5 {
+    grid-template-areas: "a a b b";
+}
+
+.row-btn-5 div:first-child {
+    border-radius: 90rem;
+    grid-area: a;
+    align-self: left;
+    justify-items: flex-start;
+    width: 10rem !important;
+}
+
+.text-white {
+    color: var(--white);
+}
+
+.btn-yellow {
+    background-color: var(--yellow);
+}
+
+.btn-grey {
+    background-color: var(--grey);
+}
+
+.btn-bold-grey {
+    background-color: var(--bold-grey);
+}
