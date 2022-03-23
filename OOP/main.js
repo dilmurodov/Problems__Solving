@@ -30,21 +30,19 @@
 //     eats: true
 // }
 
-// function Rabbit(name){
-//     this.name = name;
-// }
+function Rabbit(name){
+    this.name = name
+}
 
-// // Rabbit ni animalga bolasi sifatida ulab quyish 
-// // (Endi Animal Rabbitnig Prototypei hisoblanadi,)
+let rabbit = new Rabbit('Uzun quloq')
 
-// Rabbit.prototype = animal; 
+console.log(rabbit); // Rabbit tipidagi ekzemplyar object yaratildi.
 
-// console.log(Rabbit.eats);
+console.log(rabbit.__proto__); // Always point to rabbit's own prototype objects => {} 
 
-// let rabbit = new Rabbit(); // = rabbit.__proto__ = Rabbit
+rabbit.__proto__.age = 19;
 
-// console.log(rabbit); // => true
-
+console.log(rabbit.__proto__); // => {age: 19}
 
 // Classes in Js (ES6+ 2015)
 
@@ -69,4 +67,34 @@
 // }
 
 // let user = new User('Tolib');
+
+// Inheritance CLASSES in JS
+
+// class Animal {
+//     constructor(name){
+//         this.speed = 0;
+//         this.name = name;
+//     }
+//     run(speed){
+//         this.speed = speed;
+//         alert(`${this.name} бежит со скоростью ${this.speed}`);
+//     }
+//     stop(){
+//         this.speed = 0;
+//         alert(`${this.name} стоит.`)
+//     }
+// }
+
+// let animal = new Animal('Uy qayvonim');
+
+// class Rabbit {
+//     constructor(name){
+//         this.name = name
+//     }
+//     hide(){
+//         alert(`${this.name} прячется!`)
+//     }
+// }
+
+// let rabbit = new Rabbit("Uzun Quloq");
 
