@@ -166,5 +166,30 @@
 // let clock = new Clock({ template: "h:m:s" });
 // clock.start();
 
+// Static Mehods and Properties
 
+/**
+ * 1. static methods are not inherited
+ * 2. In invoked by only Class or constructon function but not inctances
+ * 3. 
+ */
+ class ArrayT {
+    /**
+     * @param {any} number 
+     */
+    constructor(number){
+        this.number = number;
+    }
+
+    static comparator(a, b){ // Static Method unga faqat ArrayT classidan murojaat qilishimiz mumkun.
+        return  b.number - a.number; // decreasing sort 
+    }
+}
+
+let arr = [new ArrayT(1), new ArrayT(2), new ArrayT(3), new ArrayT(4)]
+arr.sort(ArrayT.comparator)
+// arr.sort((a, b) => {
+//     return b.number - a.number  
+// });
+console.log(arr); // [ ArrayT { number: 4 },  ArrayT { number: 3 }, ArrayT { number: 2 }, ArrayT { number: 1 } ]
 
