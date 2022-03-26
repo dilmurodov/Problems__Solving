@@ -233,3 +233,50 @@
  */
 
 // console.log(john.__proto__.__proto__.__proto__); // null
+
+// Inheritance function cunstructors
+
+let Person = function (firstName, age) {
+  // Parent Class
+  this.firstName = firstName;
+  this.age = age;
+};
+
+Person.prototype.sayHello = function () {
+  console.log(`Hello, I'm ${this.firstName}. I'm ${this.age} years old!`);
+};
+
+let Student = function (firstName, age, course) {
+  // Child Class
+  /**
+   * Здесь this присвоеться на Student function-constuction
+   * Если мы не вызывали бы через call method тогда Person это expression function и его this = undefined
+   * А мы хотим что this дольжен указать Student и поетому явно указываем this(Person) => this(Student)
+   */
+  Person.call(this, firstName, age); // расшираем Class Student с классом конструктора Person, this = Student
+  // is same thing with
+  /**
+   * this.firstName = firstName;
+   * this.age = age;
+   * this.course = course;
+   */
+   this.course = course;
+};
+
+// И если мы хотим расширет Class Student методами то нам нужно установить в него Person.prototype c Object.create 
+
+console.log(Student.prototype); // => Object.prototype => null
+
+Student.prototype = Object.create(Person.prototype);
+
+console.log(Student.prototype); // =>__proto__: Person.prototype => __proto__: Object.prototype => __proto__: null
+
+Student.prototype.aboutStudent = function () {
+  console.log(
+    `Hello, My name is ${this.firstName} and I'm ${this.age}. I study ${this.course} course`
+  );
+};
+
+let student = new Student("Tolib", 19, "Software Engeenering");
+student.aboutStudent(); // Hello, My name is Tolib and I'm 19. I study Software Engeenering course
+student.sayHello() // Vualya, its working (bacause we linked Person prototype to Student prototype with Object.create)
