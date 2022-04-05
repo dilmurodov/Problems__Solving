@@ -460,3 +460,27 @@
 
 
 // getCountries('canada', 'russian', 'uzbekistan')
+
+// Promise Race
+
+const timeout = function (sec) {
+    return new Promise((resolve, reject) => [
+      setTimeout(() => {
+        resolve('Yout internet is slow');
+      }, sec * 1000),
+    ]);
+  };
+  
+  const getData = async function () {
+    try {
+      return Promise.all([
+        getJson("https://restcountries.com/v2/name/russian"),
+      ]);
+    } catch (error) {
+        console.error(error);
+    }
+  };
+  
+  (async function(){
+      let data = await Promise.race([getData(), timeout(1.001)]).then(res => console.log(res))
+  })();
