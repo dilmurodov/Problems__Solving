@@ -236,47 +236,227 @@
 
 // Inheritance function cunstructors
 
-let Person = function (firstName, age) {
-  // Parent Class
-  this.firstName = firstName;
-  this.age = age;
-};
+// let Person = function (firstName, age) {
+//   // Parent Class
+//   this.firstName = firstName;
+//   this.age = age;
+// };
 
-Person.prototype.sayHello = function () {
-  console.log(`Hello, I'm ${this.firstName}. I'm ${this.age} years old!`);
-};
+// Person.prototype.sayHello = function () {
+//   console.log(`Hello, I'm ${this.firstName}. I'm ${this.age} years old!`);
+// };
 
-let Student = function (firstName, age, course) {
-  // Child Class
-  /**
-   * Здесь this присвоеться на Student function-constuction
-   * Если мы не вызывали бы через call method тогда Person это expression function и его this = undefined
-   * А мы хотим что this дольжен указать Student и поетому явно указываем this(Person) => this(Student)
-   */
-  Person.call(this, firstName, age); // расшираем Class Student с классом конструктора Person, this = Student
-  // is same thing with
-  /**
-   * this.firstName = firstName;
-   * this.age = age;
-   * this.course = course;
-   */
-   this.course = course;
-};
+// let Student = function (firstName, age, course) {
+//   // Child Class
+//   /**
+//    * Здесь this присвоеться на Student function-constuction
+//    * Если мы не вызывали бы через call method тогда Person это expression function и его this = undefined
+//    * А мы хотим что this дольжен указать Student и поетому явно указываем this(Person) => this(Student)
+//    */
+//   Person.call(this, firstName, age); // расшираем Class Student с классом конструктора Person, this = Student
+//   // is same thing with
+//   /**
+//    * this.firstName = firstName;
+//    * this.age = age;
+//    * this.course = course;
+//    */
+//    this.course = course;
+// };
 
-// И если мы хотим расширет Class Student методами то нам нужно установить в него Person.prototype c Object.create 
+// // И если мы хотим расширет Class Student методами то нам нужно установить в него Person.prototype c Object.create
 
-console.log(Student.prototype); // => Object.prototype => null
+// console.log(Student.prototype); // => Object.prototype => null
 
-Student.prototype = Object.create(Person.prototype);
+// Student.prototype = Object.create(Person.prototype);
 
-console.log(Student.prototype); // =>__proto__: Person.prototype => __proto__: Object.prototype => __proto__: null
+// console.log(Student.prototype); // =>__proto__: Person.prototype => __proto__: Object.prototype => __proto__: null
 
-Student.prototype.aboutStudent = function () {
-  console.log(
-    `Hello, My name is ${this.firstName} and I'm ${this.age}. I study ${this.course} course`
-  );
-};
+// Student.prototype.aboutStudent = function () {
+//   console.log(
+//     `Hello, My name is ${this.firstName} and I'm ${this.age}. I study ${this.course} course`
+//   );
+// };
 
-let student = new Student("Tolib", 19, "Software Engeenering");
-student.aboutStudent(); // Hello, My name is Tolib and I'm 19. I study Software Engeenering course
-student.sayHello() // Vualya, its working (bacause we linked Person prototype to Student prototype with Object.create)
+// let student = new Student("Tolib", 19, "Software Engeenering");
+// student.aboutStudent(); // Hello, My name is Tolib and I'm 19. I study Software Engeenering course
+// student.sayHello() // Vualya, its working (bacause we linked Person prototype to Student prototype with Object.create)
+
+// Coding Challange (Inheritance betweeen function contstructions)
+
+// function Car(make, speed){
+//   this.speed = speed;
+//   this.make = make;
+// };
+
+// Car.prototype.increase = function () {
+//   this.speed += 10;
+//   console.log(`Car which is maked from ${this.make} is moveing ${this.speed} km/h 🚀`);
+// }
+// Car.prototype.slow = function () {
+//   this.speed -= 5;
+//   console.log(`Car which is maked from ${this.make} is moveing ${this.speed} km/h 🚀`)
+// }
+
+// function ElectroCar (speed, make, charge) {
+//   Car.call(this, speed, make);
+//   this.charge = charge;
+// }
+// ElectroCar.prototype = Object.create(Car.prototype); // Vorisiga Otasini Prototypeini tanishtirib quyishimiz kerak.
+
+// ElectroCar.prototype.chargeBattery = function (chargeTo) {
+//   this.charge = chargeTo;
+// }
+
+// let car = new ElectroCar('GM', 100, 83); // Создаем экземпляр Обекть
+
+// console.log(car);
+
+// Promise
+
+// function loadScript(src) {
+//   let script = document.getElementbyTagName('script')
+//   script.src = src;
+//   script.onload('Alert script already donwloaded!');
+// }
+
+// const getCoords = new Promise(function(resolve, reject) {
+//   navigator.geolocation.getCurrentPosition(position => {
+//     return resolve(position) // Agar position olinsa
+//   }, error => {
+//     return reject(error) // Agar position olinmasa
+//   })
+// })
+
+// getLocation.then(res => console.log(res)).catch(error => console.log(error));
+
+// const getLocation = function () {
+//   let position = null;
+
+// }
+
+// Examples
+
+// function delay(ms){
+//   return new Promise(resolve => setTimeout(resolve, ms))
+
+// }
+
+// delay(3000).then(() => alert('выполнтлось через 3 секунды'));
+
+/**
+ * 1.resolve hech qandey argument olmadi chunki deley (f) dan hech qandey qiymat kutilmiyopti.
+ * 2. bizda errorlar ni hanling qilib ular bilan ishlash shart bulmagani uchun reject degan argument bermiyommiz executerga.
+ */
+
+// const func = async function () {
+//   let [data] = await (await fetch('https://restcountries.com/v2/name/uzbekistan')).json()
+//   console.log(data)
+// }
+// func();
+
+/**
+ * new Thenable yani object yaratib uni birinchi then dan qaytaryapti. 
+ * bizda yangi yaralgan objectning ham then methodi bor 
+ * argumentiga sifatida built in function alerni berib yuboryapmiz.
+//  */
+// class Thenable {
+//   constructor(num) {
+//     this.num = num;
+//   }
+//   then(resolve, reject) {
+//     console.log(resolve) // function() { native code }
+//     // будет успешно выполнено с аргументом this.num*2 через 1 секунду
+//     setTimeout(() => resolve(this.num * 2), 1000); // (**)
+//   }
+// }
+
+// new Promise(resolve => resolve(1))
+//   .then(result => {
+//     return new Thenable(result); // (*)
+//   })
+//   .then(alert); // показывает 2 через 1000мс
+
+/**
+ * Prmoise yaratilgan payt hech qandey hatolik topilmadi. 
+ * shuning uchun biz resolve orqali keyingi ishimizga javob qaytarib yubordik.
+ * 1. img yaratiladi
+ * 2. keyin alert(Закончили показ...) chiqadi
+ * 3. setTimeout 3 second utib bulgandan sung rasmni uchiradi
+ */
+
+// fetch(`https://api.github.com/users/dilmurodov`)
+//   .then((response) => response.json())
+//   .then(
+//     (githubUser) =>
+//       new Promise((resolve) => {
+//         let img = document.createElement("img");
+//         img.src = githubUser.avatar_url;
+//         img.className = "promise-avatar-example";
+//         document.body.append(img);
+
+//         setTimeout(() => {
+//           img.remove();
+//           resolve(githubUser); // (**) 
+//         }, 8000);
+//       })
+//   )
+//   .then((githubUser) => alert(`Закончили показ ${githubUser.name}`));
+// срабатывает через 3 секунды
+
+// let getPos = function () {
+//   return new Promise(
+//     (resolve, reject) => {
+//       navigator.geolocation.getCurrentPosition(
+//         (e) => {
+//           resolve(e)
+//         },
+//         (error) => {
+//           reject(error)
+//         }
+//       )
+//     }
+//   )
+// }
+
+// function flagCountry () {
+//   getPos().then(res => consolr.log(res), error => error)
+//   let datd = await fetch('https://restcountries.com/v2/name/uzbekistan');
+// }
+
+// async function func(){
+//     let data = fetch('...');
+//     let jsonData = data.json();
+// }
+
+// Parallel Promising
+
+// const getCountries = async function (c1, c2, c3){
+//     try {
+//         const [data1] = await getJson(`https://restcountries.com/v2/name/${c1}`)
+//         const [data2] = await getJson(`https://restcountries.com/v2/name/${c2}`)
+//         const [data3] = await getJson(`https://restcountries.com/v2/name/${c3}`)
+        
+//         console.log([data1.capital, data2.capital,data3.capital])
+        
+//     } catch (error) {
+//         console.error(error)
+//     }
+// };
+
+// const getCountries = async function (c1, c2, c3){
+//     try {
+//         const data = await Promise.all(
+//             [
+//                 getJson(`https://restcountries.com/v2/name/${c1}`),
+//                 getJson(`https://restcountries.com/v2/name/${c2}`),
+//                 getJson(`https://restcountries.com/v2/name/${c3}`)
+//             ]
+//         )
+//         console.log(data);
+//     } catch (error) {
+//         console.error(error)
+//     }
+// };
+
+
+// getCountries('canada', 'russian', 'uzbekistan')
